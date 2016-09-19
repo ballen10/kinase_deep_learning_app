@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Multitask Kinase Deep Learning</title>
+    <meta name="viewport" content="width=device-width,
+        initial-scale=1">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+  </head>
+
+    <body>
+    
+    <ul class="nav nav-pills" role="tablist">
+        <div class="media">
+            <span class="media-left">
+                <img class="pull-left" style = "max-width:1200px;" src="{{ url_for('static', filename='bitmap.png') }}">
+            </span>
+        </div>
+        <h2><strong>Multitask Deep Neural Network for Kinase Classification:</strong></h2>
+        <h3>Please enter molecule smiles for kinase target classification</h3>
+        <h4>This application predicts the probability of inhibition for molecules specified by a smiles string using a multitask 
+        deep neural network trained using over 700,000 human kinase bioactivity annotations for over 300,000 unique small molecules 
+        from ChEMBL and the Kinase Knowledge Base across 342 kinases. Each smiles string should be separated by a new line with no delimiter.</h4>
+    </ul>
+
+    <div class="container">
+
+        {% from "_formhelpers.html" import render_field %}
+
+        <form method=post action="/results">
+            <dl>
+                {{ render_field(form.smiles, cols='30', rows='10') }}
+            </dl>
+            <div>
+                <input type=submit value='Submit smiles' name='submit_btn'>
+            </div>
+        </form>
+    </div>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Multitask Kinase Deep Learning</title>
+    <meta name="viewport" content="width=device-width,
+        initial-scale=1">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.css" type="text/css" />
+    <script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.js"></script>
+    {{ script | safe }}
+  </head>
+
+  <body>
+
+    <h3>Your compound smiles:</h3>
+    <div>{{ content }}</div>
+
+    <div id='button'>
+      <form action="/">
+        <input type=submit value='Submit another molecule smiles'>
+      </form>
+    </div>
+    <div id='container'>
+      <h3>Prediction:</h3>
+      <div>Kinase predictions</div>
+      {{ div | safe }}
+      
+      <a href="/download" target="blank"><button class='btn btn-default'>Download predictions.</button></a>
+
+      <div class="table-responsive" style="height:1000px;width:1500px;overflow:auto">
+        <table class="table table-bordered table-hover">
+          <thead>
+	    <th>Kinase Target</th>
+	    {% for k,v in prediction.iteritems() %}
+	       <th> {{ k }} </th>
+	    {% endfor %}
+	  </thead>
+	    {% for key,value in prediction.iterrows() %}
+	    <tr>
+	      <th> {{ key }} </th>
+	    {% for x in range(value|length) %}
+		<td>{{ value[x] }}</td>
+            {% endfor %}
+	    </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
